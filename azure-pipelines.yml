@@ -1,0 +1,32 @@
+variables:
+  vmImageName: 'Ubuntu 16.04'
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+  tag: '10.0.2'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        repository: elsa/keycloak
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
+    - task: ECRPushImage@1
+      condition: eq(variables.isMain, true)
+      inputs:
+        awsCredentials: 'elsa-ci'
+        regionName: 'eu-west-1'
+        imageSource: 'imagename'
+        sourceImageTag: '$(tag)'
+        sourceImageName: 'elsa/keycloak'
+        repositoryName: 'elsa-dev-keycloak'
+        pushTag: '$(tag)'
