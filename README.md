@@ -8,4 +8,4 @@ docker build -t elsa/keycloak:10.0.2 .
 ```
 
 ## Konttikuvan testaaminen paikallisesti
-Suorita ```docker-compose up``` ja navigoi osoitteeseen http://localhost:9080/
+Suorita ```docker-compose up --scale keycloak=2``` ja navigoi osoitteeseen http://localhost:9080/
