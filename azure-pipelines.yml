@@ -28,5 +28,5 @@ stages:
         imageSource: 'imagename'
         sourceImageTag: '$(tag)'
         sourceImageName: 'elsa/keycloak'
-        repositoryName: 'elsa-dev-keycloak'
+        repositoryName: 'elsa-keycloak'
         pushTag: '$(tag)'
