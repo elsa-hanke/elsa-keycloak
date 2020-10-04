@@ -1,5 +1,7 @@
 # ELSA Keycloak
 
+[![Build Status](https://dev.azure.com/elsa-hanke/ELSA/_apis/build/status/elsa-hanke.elsa-keycloak?branchName=main)](https://dev.azure.com/elsa-hanke/ELSA/_build/latest?definitionId=5&branchName=main)
+
 Tätä projektia käytetään ELSA:n Keycloak-konttikuvan rakentamiseen. Alkuperäiseen konttikuvaan lisätään ELSA:n asetukset, käännökset ja tyylit.
 
 ## Konttikuvan rakentaminen
