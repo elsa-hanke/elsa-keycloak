@@ -1,7 +1,7 @@
 {
     "id": "elsa",
     "realm": "elsa",
-    "displayNameHtml": "ELSA",
+    "displayNameHtml": "<div class=\"kc-logo-text\"></div><span>ELSA</span>",
     "notBefore": 0,
     "revokeRefreshToken": false,
     "refreshTokenMaxReuse": 0,
