@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 services:
   postgres:
     image: postgres
@@ -25,11 +25,7 @@ services:
   keycloak:
     image: elsa/keycloak:10.0.2
     command:
-      [
-        "-b",
-        "0.0.0.0",
-        "-Dkeycloak.profile.feature.upload_scripts=enabled"
-      ]
+      ["-b", "0.0.0.0", "-Dkeycloak.profile.feature.upload_scripts=enabled"]
     environment:
       DB_VENDOR: postgres
       DB_ADDR: postgres
