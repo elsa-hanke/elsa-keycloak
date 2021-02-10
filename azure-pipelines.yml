@@ -31,7 +31,7 @@ stages:
         repositoryName: 'elsa-keycloak'
         pushTag: '$(tag)'
 
-- stage: Deploy_dev
+- stage: Deploy_keycloak_dev
     displayName: Deploy dev
     dependsOn: Build
     condition: and(succeeded(), eq(variables.isMain, true))
