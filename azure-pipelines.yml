@@ -52,4 +52,4 @@ stages:
                     awsCommand: 'ecs'
                     awsSubcommand: 'update-service'
                     awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment'
-                displayName: Force update ecs service
+                  displayName: Force update ecs service
