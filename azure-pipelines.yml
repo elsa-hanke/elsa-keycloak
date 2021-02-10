@@ -41,12 +41,15 @@ stages:
       environment: "development"
       pool:
         vmImage: $(vmImageName)
-      steps:
-        - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
-          inputs:
-            awsCredentials: 'elsa-ci'
-            regionName: 'eu-west-1'
-            awsCommand: 'ecs'
-            awsSubcommand: 'update-service'
-            awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment'
-          displayName: Force update ecs service
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                inputs:
+                  awsCredentials: 'elsa-ci'
+                  regionName: 'eu-west-1'
+                  awsCommand: 'ecs'
+                  awsSubcommand: 'update-service'
+                  awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment'
+               displayName: Force update ecs service
