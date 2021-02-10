@@ -31,25 +31,25 @@ stages:
         repositoryName: 'elsa-keycloak'
         pushTag: '$(tag)'
 
-- stage: Deploy_keycloak_dev
-  displayName: Deploy stage
-  dependsOn: Build
-  condition: and(succeeded(), eq(variables.isMain, true))
-  jobs:
-    - deployment: Deploy
-      displayName: Deploy keycloak dev
-      environment: "development"
-      pool:
-        vmImage: $(vmImageName)
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
-                inputs:
-                  awsCredentials: 'elsa-ci'
-                  regionName: 'eu-west-1'
-                  awsCommand: 'ecs'
-                  awsSubcommand: 'update-service'
-                  awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment'
-               displayName: Force update ecs service
+  - stage: Deploy_keycloak_dev
+    displayName: Deploy stage
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables.isMain, true))
+    jobs:
+      - deployment: Deploy
+        displayName: Deploy keycloak dev
+        environment: "development"
+        pool:
+          vmImage: $(vmImageName)
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                  inputs:
+                    awsCredentials: 'elsa-ci'
+                    regionName: 'eu-west-1'
+                    awsCommand: 'ecs'
+                    awsSubcommand: 'update-service'
+                    awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment'
+                displayName: Force update ecs service
