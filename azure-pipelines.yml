@@ -11,25 +11,25 @@ stages:
         displayName: Build
         pool:
           vmImage: $(vmImageName)
-    steps:
-      - task: Docker@2
-        displayName: Build an image
-        inputs:
-          command: build
-          repository: elsa/keycloak
-          dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-          tags: |
-            $(tag)
-      - task: ECRPushImage@1
-        condition: eq(variables.isMain, true)
-        inputs:
-          awsCredentials: 'elsa-ci'
-          regionName: 'eu-west-1'
-          imageSource: 'imagename'
-          sourceImageTag: '$(tag)'
-          sourceImageName: 'elsa/keycloak'
-          repositoryName: 'elsa-keycloak'
-          pushTag: '$(tag)'
+        steps:
+          - task: Docker@2
+            displayName: Build an image
+            inputs:
+              command: build
+              repository: elsa/keycloak
+              dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+              tags: |
+                $(tag)
+          - task: ECRPushImage@1
+            condition: eq(variables.isMain, true)
+            inputs:
+              awsCredentials: 'elsa-ci'
+              regionName: 'eu-west-1'
+              imageSource: 'imagename'
+              sourceImageTag: '$(tag)'
+              sourceImageName: 'elsa/keycloak'
+              repositoryName: 'elsa-keycloak'
+              pushTag: '$(tag)'
 
   - stage: Deploy_keycloak_dev
     displayName: Deploy stage
