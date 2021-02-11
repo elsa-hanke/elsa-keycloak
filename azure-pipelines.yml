@@ -53,3 +53,26 @@ stages:
                     awsSubcommand: 'update-service'
                     awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment'
                   displayName: Force update ecs service
+  
+  - stage: Deploy_keycloak_testi
+    displayName: Deploy stage
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables.isMain, true))
+    jobs:
+      - deployment: Deploy
+        displayName: Deploy keycloak testi
+        environment: "development"
+        pool:
+          vmImage: $(vmImageName)
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                  inputs:
+                    awsCredentials: 'staging-elsa-ci'
+                    regionName: 'eu-west-1'
+                    awsCommand: 'ecs'
+                    awsSubcommand: 'update-service'
+                    awsArguments: '--cluster elsa-dev-cluster --service ecs-staging-keycloak --force-new-deployment'
+                  displayName: Force update ecs service                
