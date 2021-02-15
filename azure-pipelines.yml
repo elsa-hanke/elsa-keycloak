@@ -45,14 +45,13 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
-                  inputs:
-                    awsCredentials: 'elsa-ci'
-                    regionName: 'eu-west-1'
-                    awsCommand: 'ecs'
-                    awsSubcommand: 'update-service'
-                    awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment' 1>dev/null
-                  displayName: Force update ecs service
+              - task: AmazonWebServices.aws-vsts-tools.AWSShellScript.AWSShellScript@1
+                displayName: 'AWS Shell Script'
+                inputs:
+                  awsCredentials: 'elsa-ci'
+                  regionName: 'eu-west-1'
+                  scriptType: inline
+                  inlineScript: 'aws ecs update-service --cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment > dev/null'
   
   - stage: Deploy_keycloak_testi
     displayName: Deploy stage
@@ -74,5 +73,5 @@ stages:
                     regionName: 'eu-west-1'
                     awsCommand: 'ecs'
                     awsSubcommand: 'update-service'
-                    awsArguments: '--cluster elsa-staging-cluster --service elsa-staging-keycloak-service --force-new-deployment --output json 1>dev/null'
+                    awsArguments: '--cluster elsa-staging-cluster --service elsa-staging-keycloak-service --force-new-deployment'
                   displayName: Force update ecs service                
