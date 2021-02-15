@@ -51,7 +51,7 @@ stages:
                   awsCredentials: 'elsa-ci'
                   regionName: 'eu-west-1'
                   scriptType: inline
-                  inlineScript: 'aws ecs update-service --cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment > dev/null'
+                  inlineScript: 'aws ecs update-service --cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment > /dev/null'
   
   - stage: Deploy_keycloak_testi
     displayName: Deploy stage
@@ -60,7 +60,7 @@ stages:
     jobs:
       - deployment: Deploy
         displayName: Deploy keycloak testi
-        environment: "development"
+        environment: "testi"
         pool:
           vmImage: $(vmImageName)
         strategy:
