@@ -51,7 +51,7 @@ stages:
                     regionName: 'eu-west-1'
                     awsCommand: 'ecs'
                     awsSubcommand: 'update-service'
-                    awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment --output 1>dev/null'
+                    awsArguments: '--cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment' 1>dev/null
                   displayName: Force update ecs service
   
   - stage: Deploy_keycloak_testi
