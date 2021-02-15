@@ -32,7 +32,7 @@ stages:
               pushTag: '$(tag)'
 
   - stage: Deploy_keycloak_dev
-    displayName: Deploy stage
+    displayName: Deploy dev
     dependsOn: Build
     condition: and(succeeded(), eq(variables.isMain, true))
     jobs:
@@ -52,6 +52,7 @@ stages:
                   regionName: 'eu-west-1'
                   scriptType: inline
                   inlineScript: 'aws ecs update-service --cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment > /dev/null'
+                displayName: Force update ecs service
   
   - stage: Deploy_keycloak_testi
     displayName: Deploy stage
@@ -67,11 +68,10 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: AmazonWebServices.aws-vsts-tools.AWSCLI.AWSCLI@1
+                - task: AmazonWebServices.aws-vsts-tools.AWSShellScript.AWSShellScript@1
                   inputs:
                     awsCredentials: 'staging-elsa-ci'
                     regionName: 'eu-west-1'
-                    awsCommand: 'ecs'
-                    awsSubcommand: 'update-service'
-                    awsArguments: '--cluster elsa-staging-cluster --service elsa-staging-keycloak-service --force-new-deployment'
+                    scriptType: inline
+                    inlineScript: 'aws ecs update-service --cluster elsa-staging-cluster --service elsa-staging-keycloak-service --force-new-deployment > /dev/null'
                   displayName: Force update ecs service                
