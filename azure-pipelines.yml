@@ -46,13 +46,12 @@ stages:
             deploy:
               steps:
               - task: AmazonWebServices.aws-vsts-tools.AWSShellScript.AWSShellScript@1
-                displayName: 'AWS Shell Script'
+                displayName: Force update ecs service
                 inputs:
                   awsCredentials: 'elsa-ci'
                   regionName: 'eu-west-1'
                   scriptType: inline
                   inlineScript: 'aws ecs update-service --cluster elsa-dev-cluster --service ecs-dev-keycloak --force-new-deployment > /dev/null'
-                displayName: Force update ecs service
   
   - stage: Deploy_keycloak_testi
     displayName: Deploy stage
