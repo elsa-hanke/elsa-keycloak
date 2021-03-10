@@ -28,7 +28,7 @@ stages:
               imageSource: 'imagename'
               sourceImageTag: '$(tag)'
               sourceImageName: 'elsa/keycloak'
-              repositoryName: 'elsa-keycloak'
+              repositoryName: 'ecr-dev-keycloak'
               pushTag: '$(tag)'
 
   - stage: Deploy_keycloak_dev
